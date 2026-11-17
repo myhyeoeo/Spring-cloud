@@ -1,4 +1,8 @@
 package com.ch4.repository;
 
-public interface MemberRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ch4.entity.Member;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }
