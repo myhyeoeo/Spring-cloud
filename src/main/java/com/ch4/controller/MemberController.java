@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ch4.dto.MemberRequestDto;
 import com.ch4.dto.MemberResponseDto;
+import com.ch4.service.MemberService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,17 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
+
+	private final MemberService memberService;
+
 	@PostMapping("/api/members")
-	public ResponseEntity<MemberResponseDto> saveMember(@RequestBody @Valid MemberRequestDto request){
+	public ResponseEntity<MemberResponseDto> saveMember(@RequestBody @Valid MemberRequestDto request) {
 		MemberResponseDto responseDto = memberService.createMember(request);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
 
 	@GetMapping("/api/members/{id}")
-	public ResponseEntity<MemberResponseDto> getMember(@PathVariable Long id){
+	public ResponseEntity<MemberResponseDto> getMember(@PathVariable Long id) {
 		MemberResponseDto responseDto = memberService.getMember(id);
 		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 	}
