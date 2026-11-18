@@ -44,6 +44,14 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+            
+
+      # Step 7: AWS 자격증명 - OIDC
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       # Step 5: 테스트 실행
       - name: Run tests
@@ -53,12 +61,7 @@ jobs:
       - name: Build JAR
         run: ./gradlew bootJar
 
-      # Step 7: AWS 자격증명 - OIDC
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6
-        with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
+
 
       # Step 8: ECR 로그인
       - name: Login to ECR
