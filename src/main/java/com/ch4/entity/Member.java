@@ -31,9 +31,15 @@ public class Member {
 	@Column(nullable = false, length = 10)
 	private Mbti mbti;
 
+	private String profileImageUrl;
+
 	public Member(String name, Integer age, Mbti mbti) {
 		this.name = name;
 		this.age = age;
 		this.mbti = mbti;
+	}
+
+	public void updateProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
 	}
 }
