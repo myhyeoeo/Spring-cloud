@@ -61,8 +61,6 @@ jobs:
       - name: Build JAR
         run: ./gradlew bootJar
 
-
-
       # Step 8: ECR 로그인
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2

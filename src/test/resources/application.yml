@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+      s3:
+        bucket: aws-parameterstore:/ch4/prod/
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
