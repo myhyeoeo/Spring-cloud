@@ -67,5 +67,6 @@ http://13.125.176.162:8080/actuator/info 연결 시
 -> 임의의 테스트를 통과하는데 테스트가 parameter store의 값을 불러오지 못하는 문제 발생
 -> 테스트 폴더에 테스트용 application.yml 파일 생성 -> 인메모리 DB인 H2를 만들어 사용
 
-4. 
+![deploy.png](images/deploy.png)
+![docker.png](images/docker.png)
 
