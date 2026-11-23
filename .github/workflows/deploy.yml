@@ -68,17 +68,21 @@ jobs:
         if: github.event_name == 'push'
         uses: aws-actions/amazon-ecr-login@v2
 
-      # Step 9: Docker 빌드 및 push
+      # Step 9: Docker 빌드 및 push (SHA 태그 + latest 태그)
       - name: Build and push Docker image
         if: github.event_name == 'push'
         run: |
           IMAGE_URI=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}
           SHORT_SHA=${{ steps.vars.outputs.short_sha }}
 
-          docker build --platform linux/arm64 -t $IMAGE_URI:$SHORT_SHA .
-          docker push $IMAGE_URI:$SHORT_SHA
+          docker build --platform linux/arm64 \
+            -t $IMAGE_URI:$SHORT_SHA \
+            -t $IMAGE_URI:latest .
 
-          echo "✅ Pushed: $IMAGE_URI:$SHORT_SHA"
+          docker push $IMAGE_URI:$SHORT_SHA
+          docker push $IMAGE_URI:latest
+
+          echo "✅ Pushed: $IMAGE_URI:$SHORT_SHA (+ latest)"
 
   # ========== CD: EC2에 새 이미지 배포 ==========
   deploy:
