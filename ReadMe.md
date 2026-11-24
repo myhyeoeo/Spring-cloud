@@ -86,3 +86,15 @@ EC2->RDS는 허용하지만 그 외의 것은 차단한다
 -> 프라이빗 서브넷에 둔다는건 외부 인터넷에서 바로 들어오는 경로를 막는 효과가 있다. 서브넷 내부의 리소스들 끼리 무조건 허용해주거나 하진 않음
 
 로드밸런서를 EC2 앞단에 두어 HTTP(80) → HTTPS(443) 리다이렉트와 ACM 인증서(myhyeoeo.click) 적용
+
+[도메인health] https://myhyeoeo.click/actuator/health
+[도메인] https://myhyeoeo.click/
+![actuator.png](images/actuator.png)
+문제점)
+처음에는 private전용 ec2와 ASG시 만들어지는 EC2에 도커가 설치되지 않아서 문제가 생겼다 -> 시작 템플릿에 유저데이터로 도커 설치작업 + 원본에는 ssm으로 직접 연결해서 도커를 설치
+깃헙액션에 사용하는 EC2의 id를 바꾸지않았다 -> 수정 완료
+Health는 UP으로 잘 뜨지만 도메인으로 들어가면 404 에러가 발생
+ALB 대상 그룹에 등록된 EC2가 Unhealth로 잡힌다
+
+![tg.png](images/tg.png)
+![tgregistered.png](images/tgregistered.png)
